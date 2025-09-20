@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>質問ボックス</title>
+  <style>
+    /* 軽いセンタリングと見た目 */
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #f7f7fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      width: 360px;
+    }
+    label { display:block; margin-bottom:8px; font-weight:600; }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 10px;
+      border: 1px solid #dcdce6;
+      border-radius: 8px;
+      resize: vertical;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .controls {
+      display:flex;
+      gap:8px;
+      margin-top:12px;
+      justify-content: flex-end;
+    }
+    button {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .hint { margin-top:10px; font-size:12px; color:#666; }
+  </style>
+</head>
+<body>
+  <div class="card" role="region" aria-label="質問ボックスデモ">
+    <label for="question">質問を入力してください</label>
+    <textarea id="question" placeholder="ここに質問を書いてください。Ctrl+Enter（または ⌘+Enter）で送信できます。"></textarea>
+    <div class="controls">
+      <button id="showBtn" type="button">表示</button>
+    
+  </div>
+
+  <script>
+    (function () {
+      const ta = document.getElementById('question');
+      const btn = document.getElementById('showBtn');
+
+      function showAlert() {
+        const text = ta.value.trim();
+        if (!text) {
+          alert('何も入力されていません。質問を入力してください。');
+          return;
+        }
+        // alert にそのまま渡す（安全上、alert はテキストをそのまま表示する）
+        alert(text);
+      }
+
+      btn.addEventListener('click', showAlert);
+
+      // Ctrl+Enter (Windows/Linux) または ⌘+Enter (macOS) で送信
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          showAlert();
+        }
+      });
+
+      // テキストが空のときにボタンを disabled にする（見た目の補助）
+      function updateButtonState() {
+        btn.disabled = ta.value.trim().length === 0;
+      }
+      ta.addEventListener('input', updateButtonState);
+      updateButtonState();
+    })();
+  </script>
+</body>
+</html>
