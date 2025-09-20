@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>質問ボックス</title>
+   <script src="main.js" defer></script>
   <style>
     /* 軽いセンタリングと見た目 */
     body {
@@ -61,38 +62,6 @@
     
   </div>
 
-  <script>
-    (function () {
-      const ta = document.getElementById('question');
-      const btn = document.getElementById('showBtn');
-
-      function showAlert() {
-        const text = ta.value.trim();
-        if (!text) {
-          alert('何も入力されていません。質問を入力してください。');
-          return;
-        }
-        // alert にそのまま渡す（安全上、alert はテキストをそのまま表示する）
-        alert(text);
-      }
-
-      btn.addEventListener('click', showAlert);
-
-      // Ctrl+Enter (Windows/Linux) または ⌘+Enter (macOS) で送信
-      ta.addEventListener('keydown', function (e) {
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-          e.preventDefault();
-          showAlert();
-        }
-      });
-
-      // テキストが空のときにボタンを disabled にする（見た目の補助）
-      function updateButtonState() {
-        btn.disabled = ta.value.trim().length === 0;
-      }
-      ta.addEventListener('input', updateButtonState);
-      updateButtonState();
-    })();
-  </script>
+   <script src="main.js" defer></script>
 </body>
 </html>
